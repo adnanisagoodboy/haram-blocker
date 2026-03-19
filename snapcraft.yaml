@@ -1,0 +1,40 @@
+name: haram-blocker
+version: '1.0'
+summary: Block haram websites system-wide on Linux
+description: |
+  Haram Blocker is a Linux desktop app that blocks adult, gambling,
+  dating, and alcohol/drug websites system-wide by editing /etc/hosts.
+
+  Features:
+  - Blocks 200+ domains across 4 categories
+  - Password-protected — cannot be disabled without your password
+  - Add custom sites to block
+  - Works in ALL browsers (Chrome, Firefox, Edge, etc.)
+  - Clean dark GUI built with Python + Tkinter
+
+grade: stable
+confinement: strict
+base: core22
+
+apps:
+  haram-blocker:
+    command: bin/python3 $SNAP/haram_blocker.py
+    plugs:
+      - desktop
+      - desktop-legacy
+      - wayland
+      - x11
+      - network
+      - home
+      - system-files   # needed to edit /etc/hosts
+
+parts:
+  haram-blocker:
+    plugin: python
+    source: .
+    python-requirements:
+      - requirements.txt
+    stage-packages:
+      - python3-tk
+      - tk
+      - tcl
