@@ -35,7 +35,7 @@ sudo apt install python3 python3-tk
 python3 haram_blocker.py
 ```
 
-> Default password: **bismillah** — change it immediately after first launch!
+> Default password: **bismillah**//admin — change it immediately after first launch!
 
 ---
 
@@ -45,29 +45,6 @@ python3 haram_blocker.py
 bash install.sh
 # Then launch with:
 haram-blocker
-```
----
-
-## 🏪 Publishing to Snap Store
-
-### Step 1 — Install Snapcraft
-```bash
-sudo snap install snapcraft --classic
-```
-
-### Step 2 — Create a Snapcraft account
-Go to → https://snapcraft.io/account and register
-
-### Step 3 — Login from terminal
-```bash
-snapcraft login
-```
-
-### Step 4 — Build the snap
-```bash
-# In the project folder:
-snapcraft
-# This creates: haram-blocker_2.0_amd64.snap
 ```
 ### AUR (Arch Linux)
 
