@@ -69,21 +69,11 @@ snapcraft login
 snapcraft
 # This creates: haram-blocker_2.0_amd64.snap
 ```
-
-### Step 5 — Upload to Snap Store
-```bash
-snapcraft upload --release=stable haram-blocker_2.0_amd64.snap
-```
-
-Done! Your app will appear at:
-`https://snapcraft.io/haram-blocker`
-
-Users can install it with:
-```bash
-sudo snap install haram-blocker
-```
 ### AUR (Arch Linux)
-`yay -S haram-blocker`
+
+```bash
+yay -S haram-blocker
+```
 
 ---
 
