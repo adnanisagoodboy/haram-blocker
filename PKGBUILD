@@ -1,7 +1,7 @@
 # Maintainer: Your Name <abdullahaladnan95@gmail.com>
 
 pkgname=haram-blocker
-pkgver=1.0
+pkgver=2.0
 pkgrel=1
 pkgdesc="System-wide content blocker for Linux — blocks adult, gambling, dating and drug sites via /etc/hosts"
 arch=('any')
@@ -13,7 +13,7 @@ optdepends=(
     'sudo: alternative privilege escalation'
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('27b3f7d39270a6607b812e77a5d949ae836b44f06b04b7b28e4c581005bc04b2') 
+sha256sums=('fd450a1ee506e47b15324f7d35ddd8829c6af020fc327979e14fef085c3f0c63') 
 package() {
     cd "$srcdir/haram-blocker-$pkgver"
 
