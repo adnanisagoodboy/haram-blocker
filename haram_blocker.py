@@ -10,7 +10,7 @@ from urllib.request import urlopen
 from urllib.error import URLError
 from collections import defaultdict
 
-# ── Paths ──────────────────────────────────────────────────────────────────────
+#Paths 
 SCRIPT_DIR   = Path(__file__).parent.resolve()
 CONFIG_DIR   = Path.home() / ".config" / "haram_blocker"
 CONFIG_FILE  = CONFIG_DIR  / "config.json"
@@ -35,7 +35,7 @@ CATEGORIES = {
     "social_media":  ("Social Media",          "#f06292"),
 }
 
-# ── Palette ────────────────────────────────────────────────────────────────────
+# Palette
 BG      = "#07090f"
 SURFACE = "#0b0f1c"
 PANEL   = "#0f1525"
@@ -62,7 +62,7 @@ WHITE   = "#e0eeff"
 
 CAT_COLORS = {cat: color for cat, (_, color) in CATEGORIES.items()}
 
-# ── Data ───────────────────────────────────────────────────────────────────────
+#Data
 
 def hash_pw(pw): return hashlib.sha256(pw.encode()).hexdigest()
 
@@ -172,7 +172,7 @@ def now_str(): return datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 def load_quotes():
     return jload(QUOTES_FILE, [])
 
-# ── DNS traffic monitor ────────────────────────────────────────────────────────
+#  DNS traffic monitor 
 
 def detect_dns_method():
     """Detect which DNS logging method is available."""
@@ -256,7 +256,7 @@ def parse_dns_queries(lines, method):
             queries.append(domain)
     return queries
 
-# ── System ─────────────────────────────────────────────────────────────────────
+#System 
 
 def run_root(cmd):
     for pre in [["pkexec"],["sudo","-n"],["sudo"]]:
@@ -309,7 +309,7 @@ def remove_autostart():
 def is_autostart():
     return (Path.home()/".config"/"autostart"/"haram_blocker.desktop").exists()
 
-# ── UI primitives ──────────────────────────────────────────────────────────────
+#  UI primitives 
 
 def B(parent, text, bg, fg, cmd, font=("Segoe UI",9), px=16, py=8, abg=None):
     return tk.Button(parent, text=text, bg=bg, fg=fg, font=font,
@@ -330,7 +330,7 @@ def Sep(parent, color=BORDER2):
 def Card(parent, **kw):
     return tk.Frame(parent, bg=CARD, highlightbackground=BORDER, highlightthickness=1, **kw)
 
-# ── Shield ─────────────────────────────────────────────────────────────────────
+#  Shield 
 
 class Shield(tk.Canvas):
     W, H = 130, 148
@@ -376,7 +376,7 @@ class Shield(tk.Canvas):
         self.tag_lower("glow")
         self._anim=self.after(50,self._pulse)
 
-# ── Bar chart ──────────────────────────────────────────────────────────────────
+#  Bar chart
 
 class BarChart(tk.Canvas):
     COLS=[GREEN,GOLD,ORANGE,PURPLE,BLUE,PINK]
@@ -411,7 +411,7 @@ class BarChart(tk.Canvas):
             self.create_text((x0+x1)/2,self._h-pb+8,text=lab[:8],fill=TEXT3,font=("Courier",8),anchor="n")
         self.create_line(pl,self._h-pb,w-pr,self._h-pb,fill=BORDER,width=1)
 
-# ── Scrollable ─────────────────────────────────────────────────────────────────
+#  Scrollable 
 
 class Scroll(tk.Frame):
     def __init__(self, parent, bg=BG, **kw):
@@ -432,9 +432,8 @@ class Scroll(tk.Frame):
         self._cv.bind_all("<MouseWheel>",
             lambda e: self._cv.yview_scroll(int(-e.delta/60),"units"))
 
-# ══════════════════════════════════════════════════════════════════════════════
 #  App
-# ══════════════════════════════════════════════════════════════════════════════
+
 
 class App(tk.Tk):
     def __init__(self):
@@ -473,7 +472,7 @@ class App(tk.Tk):
         self._detect_dns()
         self._tick()
 
-    # ── Build ──────────────────────────────────────────────────────────────────
+    #  Build
 
     def _build(self):
         self._topbar()
@@ -551,7 +550,7 @@ class App(tk.Tk):
                                   fg=TEXT3, font=("Courier",8))
         self._dns_lbl.pack(side="right", padx=18)
 
-    # ── Pages ──────────────────────────────────────────────────────────────────
+    #  Pages 
 
     def _make_pages(self):
         self._pg = {}
@@ -592,7 +591,7 @@ class App(tk.Tk):
             tk.Label(page, text=sub, bg=BG, fg=TEXT2,
                      font=("Segoe UI",9)).pack(anchor="w", padx=24, pady=(0,12))
 
-    # ── Dashboard ─────────────────────────────────────────────────────────────
+    # ── Dashboard 
 
     def _pg_dashboard(self, page):
         sc = Scroll(page); sc.pack(fill="both", expand=True)
@@ -667,7 +666,7 @@ class App(tk.Tk):
         self._refresh()
         self._show_dash_quote()
 
-    # ── Motivation / Quotes ───────────────────────────────────────────────────
+    # ── Motivation / Quotes 
 
     def _pg_quotes(self, page):
         self._ph(page, "Daily Motivation",
@@ -727,7 +726,7 @@ class App(tk.Tk):
     def _next_dash_quote(self):
         self._show_dash_quote()
 
-    # ── Categories ────────────────────────────────────────────────────────────
+    # ── Categories
 
     def _pg_cats(self, page):
         self._ph(page, "Categories", "Toggle each category. Changes apply immediately.")
@@ -758,7 +757,7 @@ class App(tk.Tk):
                            fg=TEXT2, font=("Segoe UI",9), cursor="hand2",
                            command=_cb).pack(anchor="e")
 
-    # ── Custom sites ──────────────────────────────────────────────────────────
+    # ── Custom sites
 
     def _pg_custom(self, page):
         self._ph(page, "Custom Sites", "Add any domain. www variant blocked automatically.")
@@ -773,7 +772,7 @@ class App(tk.Tk):
         self._cs_sc = Scroll(page); self._cs_sc.pack(fill="both", expand=True, padx=24, pady=(0,16))
         self._render_custom()
 
-    # ── Wildcards ─────────────────────────────────────────────────────────────
+    # ── Wildcards 
 
     def _pg_wildcards(self, page):
         self._ph(page, "Wildcard Rules", "Block domain families.  Example: *.casino.com")
@@ -795,7 +794,7 @@ class App(tk.Tk):
         self._wc_sc = Scroll(page); self._wc_sc.pack(fill="both", expand=True, padx=24, pady=(0,16))
         self._render_wc()
 
-    # ── Whitelist ─────────────────────────────────────────────────────────────
+    # ── Whitelist 
 
     def _pg_whitelist(self, page):
         self._ph(page, "Whitelist", "Sites listed here are never blocked.")
@@ -810,7 +809,7 @@ class App(tk.Tk):
         self._wl_sc = Scroll(page); self._wl_sc.pack(fill="both", expand=True, padx=24, pady=(0,16))
         self._render_wl()
 
-    # ── Site tester ───────────────────────────────────────────────────────────
+    # ── Site tester─
 
     def _pg_tester(self, page):
         self._ph(page, "Site Tester", "Check if a domain is in your blocklist.")
@@ -826,7 +825,7 @@ class App(tk.Tk):
         tk.Label(self._tc, text="Enter a domain above and press Check.",
                  bg=CARD, fg=TEXT3, font=("Segoe UI",10)).pack(anchor="w")
 
-    # ── Traffic Monitor ───────────────────────────────────────────────────────
+    # ── Traffic Monitor 
 
     def _pg_monitor(self, page):
         hdr = tk.Frame(page, bg=BG); hdr.pack(fill="x", padx=24, pady=(22,4))
@@ -867,7 +866,7 @@ class App(tk.Tk):
         self._mon_inner = self._mon_sc.inner
         self._render_monitor()
 
-    # ── Statistics ────────────────────────────────────────────────────────────
+    # ── Statistics
 
     def _pg_stats(self, page):
         hdr = tk.Frame(page, bg=BG); hdr.pack(fill="x", padx=24, pady=(22,4))
@@ -878,7 +877,7 @@ class App(tk.Tk):
         self._st_sc.pack(fill="both", expand=True, padx=24, pady=(0,16))
         self._st_inner = self._st_sc.inner
 
-    # ── Import ────────────────────────────────────────────────────────────────
+    # ── Import 
 
     def _pg_import(self, page):
         self._ph(page, "Import CSV", "Merge domains from a local file or remote URL.")
@@ -921,7 +920,7 @@ class App(tk.Tk):
         self._imp_msg = tk.Label(inn, text="", bg=BG, fg=TEXT2, font=("Segoe UI",9))
         self._imp_msg.pack(anchor="w", pady=8)
 
-    # ── History ───────────────────────────────────────────────────────────────
+    # ── History 
 
     def _pg_history(self, page):
         hdr = tk.Frame(page, bg=BG); hdr.pack(fill="x", padx=24, pady=(22,4))
@@ -934,7 +933,7 @@ class App(tk.Tk):
         self._hist_sc.pack(fill="both", expand=True, padx=24, pady=(0,16))
         self._hist_inner = self._hist_sc.inner
 
-    # ── Settings ──────────────────────────────────────────────────────────────
+    # ── Settings 
 
     def _pg_settings(self, page):
         self._ph(page, "Settings", "")
@@ -998,7 +997,7 @@ class App(tk.Tk):
           lambda: webbrowser.open(GITHUB_URL),
           px=14, py=7, abg=HOVER).pack(anchor="w")
 
-    # ── Refresh status ─────────────────────────────────────────────────────────
+    # ── Refresh status 
 
     def _refresh(self):
         enabled = self.cfg.get("enabled", False)
@@ -1032,7 +1031,7 @@ class App(tk.Tk):
         since = s.get("first_run")
         self._since_lbl.config(text=f"since {since}" if since else "")
 
-    # ── Toggle ─────────────────────────────────────────────────────────────────
+    # ── Toggle ────
 
     def _toggle(self):
         if self.cfg["enabled"]:
@@ -1072,7 +1071,7 @@ class App(tk.Tk):
         self._refresh()
         if self.cfg["enabled"]: self._apply()
 
-    # ── Custom ─────────────────────────────────────────────────────────────────
+    # ── Custom ────
 
     def _render_custom(self):
         for w in self._cs_sc.inner.winfo_children(): w.destroy()
@@ -1109,7 +1108,7 @@ class App(tk.Tk):
         save_config(self.cfg); self._render_custom(); self._refresh()
         if self.cfg["enabled"]: self._apply()
 
-    # ── Wildcards ──────────────────────────────────────────────────────────────
+    # ── Wildcards ─
 
     def _render_wc(self):
         for w in self._wc_sc.inner.winfo_children(): w.destroy()
@@ -1136,7 +1135,7 @@ class App(tk.Tk):
         self.cfg["wildcards"] = [w for w in self.cfg.get("wildcards",[]) if w != wc]
         save_config(self.cfg); self._render_wc()
 
-    # ── Whitelist ──────────────────────────────────────────────────────────────
+    # ── Whitelist ─
 
     def _render_wl(self):
         for w in self._wl_sc.inner.winfo_children(): w.destroy()
@@ -1167,7 +1166,7 @@ class App(tk.Tk):
         save_config(self.cfg); self._render_wl(); self._refresh()
         if self.cfg["enabled"]: self._apply()
 
-    # ── Site tester ────────────────────────────────────────────────────────────
+    # ── Site tester──
 
     def _run_test(self):
         raw    = self._te.get().strip()
@@ -1192,7 +1191,7 @@ class App(tk.Tk):
             tk.Label(self._tc, text=detail, bg=CARD, fg=TEXT2,
                      font=("Segoe UI",10)).pack(anchor="w")
 
-    # ── Traffic Monitor ────────────────────────────────────────────────────────
+    # ── Traffic Monitor ─────
 
     def _detect_dns(self):
         def _do():
@@ -1310,7 +1309,7 @@ class App(tk.Tk):
             with self._traf_lock: self._traf_buf.clear()
             self._render_monitor()
 
-    # ── Statistics ─────────────────────────────────────────────────────────────
+    # ── Statistics 
 
     def _render_stats(self):
         if not hasattr(self, "_st_inner"): return
@@ -1373,7 +1372,7 @@ class App(tk.Tk):
                 tk.Label(r, text=str(cnt), bg=CARD, fg=GOLD,
                          font=("Courier",10,"bold")).pack(side="right")
 
-    # ── Import/Export ──────────────────────────────────────────────────────────
+    # ── Import/Export
 
     def _browse_csv(self):
         path = filedialog.askopenfilename(
@@ -1434,7 +1433,7 @@ class App(tk.Tk):
         except Exception as e:
             messagebox.showerror("Export Failed", str(e))
 
-    # ── History ────────────────────────────────────────────────────────────────
+    # ── History ───
 
     def _render_history(self):
         for w in self._hist_inner.winfo_children(): w.destroy()
@@ -1461,7 +1460,7 @@ class App(tk.Tk):
         if messagebox.askyesno("Clear History","Delete all history entries?"):
             jsave(LOG_FILE, []); self._render_history()
 
-    # ── Settings actions ───────────────────────────────────────────────────────
+    # ── Settings actions ────
 
     def _change_pw(self):
         old = simpledialog.askstring("Current Password","Current password:",
@@ -1501,7 +1500,7 @@ class App(tk.Tk):
         total = sum(len(v) for v in self.base.values())
         messagebox.showinfo("Reloaded",f"Reloaded {total} domains from domains.csv.")
 
-    # ── Tick ───────────────────────────────────────────────────────────────────
+    # ── Tick 
 
     def _tick(self):
         # Flush DNS buffer to monitor if on that page
