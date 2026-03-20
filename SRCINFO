@@ -9,7 +9,7 @@ pkgbase = haram-blocker
 	depends = tk
 	optdepends = polkit: for GUI privilege elevation (recommended)
 	optdepends = sudo: alternative privilege escalation
-	source = haram-blocker-5.0.tar.gz::https://github.com/adnanisagoodboy/haram-blocker/archive/refs/tags/v5.0.tar.gz
-	sha256sums = fd450a1ee506e47b15324f7d35ddd8829c6af020fc327979e14fef085c3f0c63
+	source = haram-blocker-5.0.tar.gz::https://github.com/adnanisagoodboy/haram-blocker/archive/refs/tags/v2.0.tar.gz
+	sha256sums = e97d9ba348905eb85a94c8138233e0a593ecbf11630fe5812d740ed465c867e3
 
 pkgname = haram-blocker

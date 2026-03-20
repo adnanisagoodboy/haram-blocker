@@ -13,7 +13,7 @@ optdepends=(
     'sudo: alternative privilege escalation'
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('fd450a1ee506e47b15324f7d35ddd8829c6af020fc327979e14fef085c3f0c63') 
+sha256sums=('e97d9ba348905eb85a94c8138233e0a593ecbf11630fe5812d740ed465c867e3') 
 package() {
     cd "$srcdir/haram-blocker-$pkgver"
 
