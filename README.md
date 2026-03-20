@@ -4,7 +4,7 @@ A Linux desktop app that blocks Haram websites **system-wide** via `/etc/hosts`.
 
 ---
 
-## 🚫 What it blocks (200+ domains)
+## 🚫 What it blocks (1000+ domains)
 
 | Category | Examples |
 |---|---|
@@ -35,7 +35,7 @@ sudo apt install python3 python3-tk
 python3 haram_blocker.py
 ```
 
-> Default password: **bismillah**//admin — change it immediately after first launch!
+> Default password: *admin* — change it immediately after first launch!
 
 ---
 
