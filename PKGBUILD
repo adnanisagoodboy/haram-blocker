@@ -24,6 +24,7 @@ package() {
 
     install -Dm755 haram_blocker.py   "$pkgdir/opt/haram_blocker/haram_blocker.py"
     install -Dm644 data/domains.csv   "$pkgdir/opt/haram_blocker/data/domains.csv"
+    install -Dm644 data/quotes.json   "$pkgdir/opt/haram_blocker/data/quotes.json"
     install -Dm644 assets/icon.svg    "$pkgdir/opt/haram_blocker/assets/icon.svg"
     install -Dm644 assets/icon.png    "$pkgdir/opt/haram_blocker/assets/icon.png"
 
